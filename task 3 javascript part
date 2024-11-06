@@ -1,0 +1,58 @@
+// JavaScript logic for temperature conversion
+
+// Function to convert Celsius to other units
+function convertFromCelsius(temp, unit) {
+  if (unit === "Fahrenheit") {
+    return (temp * 9/5) + 32; // Celsius to Fahrenheit
+  } else if (unit === "Kelvin") {
+    return temp + 273.15; // Celsius to Kelvin
+  }
+  return temp; // If the unit is already Celsius, return it as is
+}
+
+// Function to convert Fahrenheit to other units
+function convertFromFahrenheit(temp, unit) {
+  if (unit === "Celsius") {
+    return (temp - 32) * 5/9; // Fahrenheit to Celsius
+  } else if (unit === "Kelvin") {
+    return (temp - 32) * 5/9 + 273.15; // Fahrenheit to Kelvin
+  }
+  return temp; // If the unit is already Fahrenheit, return it as is
+}
+
+// Function to convert Kelvin to other units
+function convertFromKelvin(temp, unit) {
+  if (unit === "Celsius") {
+    return temp - 273.15; // Kelvin to Celsius
+  } else if (unit === "Fahrenheit") {
+    return (temp - 273.15) * 9/5 + 32; // Kelvin to Fahrenheit
+  }
+  return temp; // If the unit is already Kelvin, return it as is
+}
+
+// Handle Convert button click
+document.getElementById("convert-btn").addEventListener("click", function() {
+  const tempInput = parseFloat(document.getElementById("temp-input").value);
+  const unit = document.getElementById("unit-select").value;
+  const resultElement = document.getElementById("result");
+
+  // Validate input: Check if the user has entered a valid number
+  if (isNaN(tempInput)) {
+    resultElement.textContent = "Please enter a valid number for the temperature.";
+    return;
+  }
+
+  let convertedTemp;
+
+  // Perform conversion based on the selected unit
+  if (unit === "Celsius") {
+    convertedTemp = convertFromCelsius(tempInput, "Fahrenheit");
+    resultElement.textContent = `${convertedTemp.toFixed(2)} °F`;
+  } else if (unit === "Fahrenheit") {
+    convertedTemp = convertFromFahrenheit(tempInput, "Celsius");
+    resultElement.textContent = `${convertedTemp.toFixed(2)} °C`;
+  } else if (unit === "Kelvin") {
+    convertedTemp = convertFromKelvin(tempInput, "Celsius");
+    resultElement.textContent = `${convertedTemp.toFixed(2)} °C`;
+  }
+});
